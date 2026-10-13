@@ -1,0 +1,1253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Trading System Dashboard</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;max-width:736px;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+</head>
+<body>
+<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="Trading System Dashboard" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;Trading System Dashboard&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(--background) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: light-dark(rgb(255 255 255), rgb(24 24 24));
+  --foreground: light-dark(rgb(26 28 31), rgb(255 255 255));
+  --card: color-mix(in oklab, var(--foreground) 5%, transparent);
+  --card-foreground: var(--foreground);
+  --popover: light-dark(rgb(255 255 255), rgb(45 45 45));
+  --popover-foreground: var(--foreground);
+  --primary: light-dark(rgb(51 156 255), rgb(131 195 255));
+  --primary-foreground: light-dark(rgb(255 255 255), rgb(13 13 13));
+  --secondary: light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%));
+  --secondary-foreground: var(--foreground);
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: light-dark(
+    rgb(26 28 31 / 49.4%),
+    rgb(255 255 255 / 49.8%)
+  );
+  --accent: light-dark(rgb(229 242 255), rgb(13 39 63));
+  --accent-foreground: var(--primary);
+  --destructive: light-dark(rgb(226 85 7), rgb(255 133 73));
+  --border: light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%));
+  --input: light-dark(
+    rgb(26 28 31 / 11.8%),
+    color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+  );
+  --ring: light-dark(rgb(51 156 255), rgb(131 195 255 / 76%));
+  --font-size-base: 14px;
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: 12.5px;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+  --color-background-primary: var(--background);
+  --color-text-primary: var(--foreground);
+  --color-border-secondary: var(--border);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--viz-font-weight-medium);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: superellipse(1.5);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget &gt; :not(.card) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: superellipse(1.5);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+    [aria-pressed=&quot;true&quot;],
+    [aria-selected=&quot;true&quot;],
+    .is-selected
+  ) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;ts-dashboard&quot; class=&quot;ts-dashboard&quot; aria-label=&quot;趋势交易系统可视化驾驶舱&quot;&gt;
+  &lt;style&gt;
+    #ts-dashboard {
+      --ts-bg: var(--background, #f7f8fa);
+      --ts-fg: var(--foreground, #18212b);
+      --ts-muted: var(--muted-foreground, #617181);
+      --ts-border: var(--border, #d7dee7);
+      --ts-card: var(--card, #ffffff);
+      --ts-primary: var(--primary, #2563eb);
+      --ts-green: #1f9d68;
+      --ts-yellow: #c47c12;
+      --ts-red: #c24141;
+      color: var(--ts-fg);
+      background: var(--ts-bg);
+      font: 400 15px/1.45 system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;
+      padding: 18px;
+      border: 1px solid var(--ts-border);
+      border-radius: 14px;
+      box-sizing: border-box;
+    }
+
+    #ts-dashboard * { box-sizing: border-box; }
+    #ts-dashboard .ts-header { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 16px; }
+    #ts-dashboard .ts-kicker { color: var(--ts-muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    #ts-dashboard .ts-state { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
+    #ts-dashboard .ts-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ts-yellow); }
+    #ts-dashboard .ts-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(260px, .65fr); gap: 18px; }
+    #ts-dashboard .ts-controls { display: grid; gap: 12px; align-content: start; }
+    #ts-dashboard .ts-control { display: grid; gap: 6px; }
+    #ts-dashboard .ts-control-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    #ts-dashboard label { color: var(--ts-muted); font-size: 12px; }
+    #ts-dashboard select, #ts-dashboard input { width: 100%; color: var(--ts-fg); background: var(--ts-card); border: 1px solid var(--ts-border); border-radius: 8px; padding: 8px 10px; font: inherit; }
+    #ts-dashboard input[type=&quot;range&quot;] { padding: 0; accent-color: var(--ts-primary); }
+    #ts-dashboard output { color: var(--ts-fg); font-weight: 500; }
+    #ts-dashboard .ts-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+    #ts-dashboard .ts-stat { background: var(--ts-card); border: 1px solid var(--ts-border); border-radius: 10px; padding: 11px; }
+    #ts-dashboard .ts-stat-label { color: var(--ts-muted); font-size: 12px; }
+    #ts-dashboard .ts-stat-value { display: block; margin-top: 3px; font-size: 20px; font-weight: 500; }
+    #ts-dashboard .ts-visual { min-width: 0; }
+    #ts-dashboard .ts-flow { width: 100%; min-height: 280px; display: block; }
+    #ts-dashboard .ts-node { fill: var(--ts-card); stroke: var(--ts-border); stroke-width: 1.5; }
+    #ts-dashboard .ts-node.active { stroke: var(--ts-primary); stroke-width: 2.5; }
+    #ts-dashboard .ts-node.blocked { stroke: var(--ts-red); }
+    #ts-dashboard .ts-flow-label { fill: var(--ts-fg); font-size: 13px; font-weight: 500; text-anchor: middle; }
+    #ts-dashboard .ts-flow-sub { fill: var(--ts-muted); font-size: 11px; text-anchor: middle; }
+    #ts-dashboard .ts-connector { stroke: var(--ts-border); stroke-width: 2; fill: none; }
+    #ts-dashboard .ts-connector.active { stroke: var(--ts-primary); }
+    #ts-dashboard .ts-risk { margin-top: 10px; }
+    #ts-dashboard .ts-risk-head { display: flex; justify-content: space-between; color: var(--ts-muted); font-size: 12px; }
+    #ts-dashboard .ts-risk-track { height: 12px; display: flex; overflow: hidden; margin-top: 7px; background: color-mix(in srgb, var(--ts-border) 40%, transparent); border-radius: 999px; }
+    #ts-dashboard .ts-risk-segment { height: 100%; transition: width .22s ease; }
+    #ts-dashboard .ts-risk-segment.first { background: var(--ts-primary); }
+    #ts-dashboard .ts-risk-segment.second { background: var(--ts-green); }
+    #ts-dashboard .ts-risk-segment.third { background: var(--ts-yellow); }
+    #ts-dashboard .ts-risk-caption { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 7px; color: var(--ts-muted); font-size: 11px; }
+    #ts-dashboard .ts-caption { margin-top: 12px; color: var(--ts-muted); font-size: 12px; }
+    @media (max-width: 760px) {
+      #ts-dashboard { padding: 14px; }
+      #ts-dashboard .ts-header { align-items: flex-start; flex-direction: column; }
+      #ts-dashboard .ts-layout { grid-template-columns: 1fr; }
+      #ts-dashboard .ts-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 430px) {
+      #ts-dashboard .ts-stats { grid-template-columns: 1fr; }
+      #ts-dashboard .ts-control-row { grid-template-columns: 1fr; }
+      #ts-dashboard .ts-flow { min-height: 330px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #ts-dashboard .ts-risk-segment { transition: none; }
+    }
+  &lt;/style&gt;
+
+  &lt;div class=&quot;ts-header&quot;&gt;
+    &lt;div&gt;
+      &lt;div class=&quot;ts-kicker&quot;&gt;TS-A-V1 · RC1&lt;/div&gt;
+      &lt;div class=&quot;ts-state&quot;&gt;&lt;span id=&quot;ts-dot&quot; class=&quot;ts-dot&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;span id=&quot;ts-state-label&quot;&gt;Yellow · 限制交易&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&quot;ts-next&quot; class=&quot;ts-caption&quot;&gt;下一步：等待符合条件的首仓触发&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;ts-layout&quot;&gt;
+    &lt;div class=&quot;ts-visual&quot;&gt;
+      &lt;div class=&quot;ts-stats&quot; aria-live=&quot;polite&quot;&gt;
+        &lt;div class=&quot;ts-stat&quot;&gt;&lt;span class=&quot;ts-stat-label&quot;&gt;BudgetR&lt;/span&gt;&lt;span id=&quot;ts-budget&quot; class=&quot;ts-stat-value&quot;&gt;¥1,250&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;ts-stat&quot;&gt;&lt;span class=&quot;ts-stat-label&quot;&gt;有效风险&lt;/span&gt;&lt;span id=&quot;ts-risk&quot; class=&quot;ts-stat-value&quot;&gt;0.125%&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;ts-stat&quot;&gt;&lt;span class=&quot;ts-stat-label&quot;&gt;建议首仓&lt;/span&gt;&lt;span id=&quot;ts-qty&quot; class=&quot;ts-stat-value&quot;&gt;300 股&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;svg class=&quot;ts-flow&quot; viewBox=&quot;0 0 760 300&quot; role=&quot;img&quot; aria-labelledby=&quot;ts-flow-title ts-flow-desc&quot;&gt;
+        &lt;title id=&quot;ts-flow-title&quot;&gt;交易系统决策流&lt;/title&gt;
+        &lt;desc id=&quot;ts-flow-desc&quot;&gt;市场闸门依次影响候选、形态、首仓、盈利加仓和退出管理。&lt;/desc&gt;
+        &lt;path id=&quot;ts-c1&quot; class=&quot;ts-connector active&quot; d=&quot;M130 70 H190&quot; /&gt;
+        &lt;path id=&quot;ts-c2&quot; class=&quot;ts-connector active&quot; d=&quot;M310 70 H370&quot; /&gt;
+        &lt;path id=&quot;ts-c3&quot; class=&quot;ts-connector active&quot; d=&quot;M490 70 H550&quot; /&gt;
+        &lt;path id=&quot;ts-c4&quot; class=&quot;ts-connector&quot; d=&quot;M610 105 V170 H490&quot; /&gt;
+        &lt;path id=&quot;ts-c5&quot; class=&quot;ts-connector&quot; d=&quot;M370 200 H310&quot; /&gt;
+        &lt;rect id=&quot;ts-n1&quot; class=&quot;ts-node active&quot; x=&quot;20&quot; y=&quot;40&quot; width=&quot;110&quot; height=&quot;60&quot; rx=&quot;12&quot; /&gt;
+        &lt;rect id=&quot;ts-n2&quot; class=&quot;ts-node active&quot; x=&quot;190&quot; y=&quot;40&quot; width=&quot;120&quot; height=&quot;60&quot; rx=&quot;12&quot; /&gt;
+        &lt;rect id=&quot;ts-n3&quot; class=&quot;ts-node active&quot; x=&quot;370&quot; y=&quot;40&quot; width=&quot;120&quot; height=&quot;60&quot; rx=&quot;12&quot; /&gt;
+        &lt;rect id=&quot;ts-n4&quot; class=&quot;ts-node&quot; x=&quot;550&quot; y=&quot;40&quot; width=&quot;120&quot; height=&quot;60&quot; rx=&quot;12&quot; /&gt;
+        &lt;rect id=&quot;ts-n5&quot; class=&quot;ts-node&quot; x=&quot;370&quot; y=&quot;170&quot; width=&quot;120&quot; height=&quot;60&quot; rx=&quot;12&quot; /&gt;
+        &lt;rect id=&quot;ts-n6&quot; class=&quot;ts-node&quot; x=&quot;190&quot; y=&quot;170&quot; width=&quot;120&quot; height=&quot;60&quot; rx=&quot;12&quot; /&gt;
+        &lt;text class=&quot;ts-flow-label&quot; x=&quot;75&quot; y=&quot;66&quot;&gt;市场闸门&lt;/text&gt;&lt;text id=&quot;ts-market-sub&quot; class=&quot;ts-flow-sub&quot; x=&quot;75&quot; y=&quot;84&quot;&gt;Yellow · 30%&lt;/text&gt;
+        &lt;text class=&quot;ts-flow-label&quot; x=&quot;250&quot; y=&quot;66&quot;&gt;候选质量&lt;/text&gt;&lt;text class=&quot;ts-flow-sub&quot; x=&quot;250&quot; y=&quot;84&quot;&gt;Candidate A/B&lt;/text&gt;
+        &lt;text class=&quot;ts-flow-label&quot; x=&quot;430&quot; y=&quot;66&quot;&gt;形态触发&lt;/text&gt;&lt;text class=&quot;ts-flow-sub&quot; x=&quot;430&quot; y=&quot;84&quot;&gt;Pivot + 量比&lt;/text&gt;
+        &lt;text class=&quot;ts-flow-label&quot; x=&quot;610&quot; y=&quot;66&quot;&gt;首仓&lt;/text&gt;&lt;text id=&quot;ts-entry-sub&quot; class=&quot;ts-flow-sub&quot; x=&quot;610&quot; y=&quot;84&quot;&gt;等待信号&lt;/text&gt;
+        &lt;text class=&quot;ts-flow-label&quot; x=&quot;430&quot; y=&quot;196&quot;&gt;盈利加仓&lt;/text&gt;&lt;text id=&quot;ts-add-sub&quot; class=&quot;ts-flow-sub&quot; x=&quot;430&quot; y=&quot;214&quot;&gt;+2% / 紧密区&lt;/text&gt;
+        &lt;text class=&quot;ts-flow-label&quot; x=&quot;250&quot; y=&quot;196&quot;&gt;退出管理&lt;/text&gt;&lt;text id=&quot;ts-exit-sub&quot; class=&quot;ts-flow-sub&quot; x=&quot;250&quot; y=&quot;214&quot;&gt;止损 / 时间 / 趋势&lt;/text&gt;
+      &lt;/svg&gt;
+      &lt;div class=&quot;ts-risk&quot; aria-label=&quot;风险切片分配&quot;&gt;
+        &lt;div class=&quot;ts-risk-head&quot;&gt;&lt;span&gt;BudgetR 风险切片&lt;/span&gt;&lt;span id=&quot;ts-slice-value&quot;&gt;55 / 25 / 20&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;ts-risk-track&quot;&gt;&lt;span id=&quot;ts-s1&quot; class=&quot;ts-risk-segment first&quot; style=&quot;width:55%&quot;&gt;&lt;/span&gt;&lt;span id=&quot;ts-s2&quot; class=&quot;ts-risk-segment second&quot; style=&quot;width:25%&quot;&gt;&lt;/span&gt;&lt;span id=&quot;ts-s3&quot; class=&quot;ts-risk-segment third&quot; style=&quot;width:20%&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;ts-risk-caption&quot;&gt;&lt;span&gt;首仓 55%&lt;/span&gt;&lt;span&gt;第二段 25%&lt;/span&gt;&lt;span&gt;第三段 20%&lt;/span&gt;&lt;span id=&quot;ts-add-scale&quot;&gt;当前加仓权限 50%&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;ts-caption&quot;&gt;图中数量是影子预检上限，不代表已创建 RiskReservation 或获得实盘下单权。&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;ts-controls&quot; aria-label=&quot;交易系统参数控制&quot;&gt;
+      &lt;div class=&quot;ts-control&quot;&gt;&lt;label for=&quot;ts-mode&quot;&gt;市场状态&lt;/label&gt;&lt;select id=&quot;ts-mode&quot;&gt;&lt;option value=&quot;green&quot;&gt;Green · 标准&lt;/option&gt;&lt;option value=&quot;yellow&quot; selected&gt;Yellow · 限制&lt;/option&gt;&lt;option value=&quot;red&quot;&gt;Red · 禁止&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;
+      &lt;div class=&quot;ts-control&quot;&gt;&lt;label for=&quot;ts-equity&quot;&gt;账户权益 &lt;output id=&quot;ts-equity-value&quot;&gt;¥1,000,000&lt;/output&gt;&lt;/label&gt;&lt;input id=&quot;ts-equity&quot; type=&quot;range&quot; min=&quot;100000&quot; max=&quot;5000000&quot; step=&quot;50000&quot; value=&quot;1000000&quot; /&gt;&lt;/div&gt;
+      &lt;div class=&quot;ts-control&quot;&gt;&lt;label for=&quot;ts-risk-pct&quot;&gt;基础风险 &lt;output id=&quot;ts-risk-pct-value&quot;&gt;0.25%&lt;/output&gt;&lt;/label&gt;&lt;input id=&quot;ts-risk-pct&quot; type=&quot;range&quot; min=&quot;0.10&quot; max=&quot;0.25&quot; step=&quot;0.025&quot; value=&quot;0.25&quot; /&gt;&lt;/div&gt;
+      &lt;div class=&quot;ts-control-row&quot;&gt;
+        &lt;div class=&quot;ts-control&quot;&gt;&lt;label for=&quot;ts-entry&quot;&gt;入场价 &lt;output id=&quot;ts-entry-value&quot;&gt;50.80&lt;/output&gt;&lt;/label&gt;&lt;input id=&quot;ts-entry&quot; type=&quot;range&quot; min=&quot;5&quot; max=&quot;200&quot; step=&quot;0.1&quot; value=&quot;50.8&quot; /&gt;&lt;/div&gt;
+        &lt;div class=&quot;ts-control&quot;&gt;&lt;label for=&quot;ts-stop&quot;&gt;保护线 &lt;output id=&quot;ts-stop-value&quot;&gt;48.30&lt;/output&gt;&lt;/label&gt;&lt;input id=&quot;ts-stop&quot; type=&quot;range&quot; min=&quot;1&quot; max=&quot;199&quot; step=&quot;0.1&quot; value=&quot;48.3&quot; /&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;ts-control&quot;&gt;&lt;label for=&quot;ts-heat&quot;&gt;当前 CommittedHeat &lt;output id=&quot;ts-heat-value&quot;&gt;0.10%&lt;/output&gt;&lt;/label&gt;&lt;input id=&quot;ts-heat&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;2&quot; step=&quot;0.05&quot; value=&quot;0.1&quot; /&gt;&lt;/div&gt;
+      &lt;div class=&quot;ts-control&quot;&gt;&lt;label for=&quot;ts-adv&quot;&gt;ADV20（万元） &lt;output id=&quot;ts-adv-value&quot;&gt;20,000&lt;/output&gt;&lt;/label&gt;&lt;input id=&quot;ts-adv&quot; type=&quot;range&quot; min=&quot;1000&quot; max=&quot;100000&quot; step=&quot;1000&quot; value=&quot;20000&quot; /&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    (function () {
+      var root = document.getElementById(&quot;ts-dashboard&quot;);
+      if (!root) return;
+      var ids = function (id) { return root.querySelector(&quot;#&quot; + id); };
+      var controls = {
+        mode: ids(&quot;ts-mode&quot;), equity: ids(&quot;ts-equity&quot;), risk: ids(&quot;ts-risk-pct&quot;), entry: ids(&quot;ts-entry&quot;), stop: ids(&quot;ts-stop&quot;), heat: ids(&quot;ts-heat&quot;), adv: ids(&quot;ts-adv&quot;)
+      };
+      var money = new Intl.NumberFormat(&quot;zh-CN&quot;, { style: &quot;currency&quot;, currency: &quot;CNY&quot;, maximumFractionDigits: 0 });
+      var integer = new Intl.NumberFormat(&quot;zh-CN&quot;, { maximumFractionDigits: 0 });
+      var modeLabel = { green: &quot;Green · 标准交易&quot;, yellow: &quot;Yellow · 限制交易&quot;, red: &quot;Red · 禁止新增风险&quot; };
+      var modeColor = { green: &quot;var(--ts-green)&quot;, yellow: &quot;var(--ts-yellow)&quot;, red: &quot;var(--ts-red)&quot; };
+      var update = function () {
+        var mode = controls.mode.value;
+        var equity = Number(controls.equity.value);
+        var baseRisk = Number(controls.risk.value);
+        var entry = Number(controls.entry.value);
+        var stop = Number(controls.stop.value);
+        var heat = Number(controls.heat.value);
+        var adv = Number(controls.adv.value) * 10000;
+        var permission = mode === &quot;green&quot; ? 1 : mode === &quot;yellow&quot; ? .5 : 0;
+        var effectiveRisk = baseRisk * permission;
+        var budget = equity * effectiveRisk / 100;
+        var cost = entry * .0077;
+        var perShareRisk = Math.max(.01, entry - Math.min(stop, entry - .01) + cost);
+        var riskQty = Math.floor((budget * .55) / perShareRisk / 100) * 100;
+        var notionalQty = Math.floor((equity * 0.08) / entry / 100) * 100;
+        var advQty = Math.floor((adv * .002 / entry) / 100) * 100;
+        var qty = Math.max(0, Math.min(riskQty, notionalQty, advQty));
+        var binding = qty === riskQty ? &quot;首段风险切片&quot; : qty === notionalQty ? &quot;单股市值 8%&quot; : &quot;总持仓 ADV20 0.20%&quot;;
+        var state = ids(&quot;ts-state-label&quot;);
+        var dot = ids(&quot;ts-dot&quot;);
+        state.textContent = modeLabel[mode];
+        dot.style.background = modeColor[mode];
+        ids(&quot;ts-budget&quot;).textContent = money.format(budget);
+        ids(&quot;ts-risk&quot;).textContent = effectiveRisk.toFixed(3) + &quot;%&quot;;
+        ids(&quot;ts-qty&quot;).textContent = integer.format(qty) + &quot; 股&quot;;
+        ids(&quot;ts-equity-value&quot;).textContent = money.format(equity);
+        ids(&quot;ts-risk-pct-value&quot;).textContent = baseRisk.toFixed(3) + &quot;%&quot;;
+        ids(&quot;ts-entry-value&quot;).textContent = entry.toFixed(2);
+        ids(&quot;ts-stop-value&quot;).textContent = stop.toFixed(2);
+        ids(&quot;ts-heat-value&quot;).textContent = heat.toFixed(2) + &quot;%&quot;;
+        ids(&quot;ts-adv-value&quot;).textContent = integer.format(controls.adv.value);
+        ids(&quot;ts-market-sub&quot;).textContent = mode === &quot;green&quot; ? &quot;Green · 80%&quot; : mode === &quot;yellow&quot; ? &quot;Yellow · 30%&quot; : &quot;Red · 0%&quot;;
+        ids(&quot;ts-entry-sub&quot;).textContent = mode === &quot;red&quot; ? &quot;拒绝首仓&quot; : qty &gt; 0 ? &quot;可进入预检&quot; : &quot;数量不足&quot;;
+        ids(&quot;ts-next&quot;).textContent = mode === &quot;red&quot; ? &quot;下一步：取消首仓与加仓计划&quot; : qty &gt; 0 ? &quot;下一步：验证计划、事件与执行窗口&quot; : &quot;下一步：扩大流动性或放弃交易&quot;;
+        ids(&quot;ts-add-sub&quot;).textContent = mode === &quot;green&quot; ? &quot;+2% / 紧密区&quot; : mode === &quot;yellow&quot; ? &quot;权限减半&quot; : &quot;暂停加仓&quot;;
+        ids(&quot;ts-exit-sub&quot;).textContent = heat &gt;= 2 ? &quot;热度超限·优先降风险&quot; : &quot;止损 / 时间 / 趋势&quot;;
+        ids(&quot;ts-add-scale&quot;).textContent = &quot;当前加仓权限 &quot; + Math.round(permission * 100) + &quot;%&quot;;
+        ids(&quot;ts-n4&quot;).classList.toggle(&quot;blocked&quot;, mode === &quot;red&quot;);
+        ids(&quot;ts-n5&quot;).classList.toggle(&quot;blocked&quot;, mode === &quot;red&quot;);
+        ids(&quot;ts-c3&quot;).classList.toggle(&quot;active&quot;, mode !== &quot;red&quot;);
+        ids(&quot;ts-c4&quot;).classList.toggle(&quot;active&quot;, mode !== &quot;red&quot;);
+        ids(&quot;ts-c5&quot;).classList.toggle(&quot;active&quot;, heat &lt; 2 &amp;&amp; mode !== &quot;red&quot;);
+        ids(&quot;ts-s1&quot;).style.width = (mode === &quot;red&quot; ? 0 : 55) + &quot;%&quot;;
+        ids(&quot;ts-s2&quot;).style.width = (mode === &quot;red&quot; ? 0 : mode === &quot;yellow&quot; ? 12.5 : 25) + &quot;%&quot;;
+        ids(&quot;ts-s3&quot;).style.width = (mode === &quot;red&quot; ? 0 : mode === &quot;yellow&quot; ? 10 : 20) + &quot;%&quot;;
+        ids(&quot;ts-slice-value&quot;).textContent = binding;
+      };
+      Object.keys(controls).forEach(function (key) { controls[key].addEventListener(&quot;input&quot;, update); controls[key].addEventListener(&quot;change&quot;, update); });
+      update();
+    }());
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+
+  const getTrigger = (target) =&gt;
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest(&quot;[data-tooltip]&quot;)
+      : null;
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handleLeave = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
+    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
+    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
+    document.removeEventListener(&quot;focusout&quot;, handleLeave);
+    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
+    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
+  document.addEventListener(&quot;pointerout&quot;, handleLeave);
+  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
+  document.addEventListener(&quot;focusout&quot;, handleLeave);
+  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</body>
+</html>
